@@ -1,6 +1,4 @@
-﻿using System;
-
-class Program
+﻿class Program
 {
     static void Main()
     {
@@ -18,6 +16,9 @@ class Program
             case 1:
                 QuestionOne();
                 break;
+            case 2:
+                QuestionTwo();
+                break;
             default:
                 Console.WriteLine("Invalid input.");
                 return;
@@ -26,7 +27,7 @@ class Program
 
     static void QuestionOne()
     {
-        Console.WriteLine("Enter an expression (e.g., 2 + 2):");
+        Console.WriteLine("Enter an expression (eg. 2 + 2):");
         string? input = Console.ReadLine();
 
         if (input is null)
@@ -36,7 +37,7 @@ class Program
         }
         
         // Split the input string into parts
-        string[] parts = input.Split(' ');
+        string[] parts = ConvertStringToArray(input.Trim());
 
         if (parts.Length != 3)
         {
@@ -44,49 +45,75 @@ class Program
             return;
         }
 
-        try
+        // Parse the operands and operator
+        double operand1 = double.Parse(parts[0]);
+        string operation = parts[1];
+        double operand2 = double.Parse(parts[2]);
+
+        double result = 0;
+
+        // Perform the calculation based on the operator
+        switch (operation)
         {
-            // Parse the operands and operator
-            Int32 operand1 = Int32.Parse(parts[0]);
-            string operation = parts[1];
-            Int32 operand2 = Int32.Parse(parts[2]);
-
-            float result = 0;
-
-            // Perform the calculation based on the operator
-            switch (operation)
-            {
-                case "+":
-                    result = operand1 + operand2;
-                    break;
-                case "-":
-                    result = operand1 - operand2;
-                    break;
-                case "*":
-                    result = operand1 * operand2;
-                    break;
-                case "/":
-                    if (operand2 != 0)
-                    {
-                        result = operand1 / operand2;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error: Division by zero.");
-                        return;
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Invalid operator. Please use one of the following: +, -, *, /.");
+            case "+":
+                result = operand1 + operand2;
+                break;
+            case "-":
+                result = operand1 - operand2;
+                break;
+            case "*":
+                result = operand1 * operand2;
+                break;
+            case "/":
+                if (operand2 != 0)
+                {
+                    result = operand1 / operand2;
+                }
+                else
+                {
+                    Console.WriteLine("Error: Division by zero.");
                     return;
-            }
+                }
+                break;
+            case "^":
+                result = Math.Pow(operand1, operand2);
+                break;
+            default:
+                Console.WriteLine("Invalid operator. Please use one of the following: +, -, *, /, ^.");
+                return;
+        }
 
-            // Print the result
-            Console.WriteLine($"Result: {result}");
-        }
-        catch (FormatException)
+        // Print the result
+        Console.WriteLine($"Result: {result}");
+    }
+
+    static void QuestionTwo()
+    {
+        Console.WriteLine("Enter an expression (eg. 2 + (2 / 4):");
+        string? input = Console.ReadLine();
+
+        if (input is null)
         {
-            Console.WriteLine("Invalid operand format. Please enter numeric operands.");
+            Console.WriteLine("Input cannot be null");
+            return;
         }
+        
+        // Split the input string into parts
+        string[] parts = ConvertStringToArray(input.Trim());
+    }
+
+    static string[] ConvertStringToArray(string str)
+    {
+        List<string> conversion = [];
+
+        foreach (char value in str)
+        {
+            if (value.ToString() != " ")
+            {
+                conversion.Add(value.ToString());
+            }
+        }
+
+        return [.. conversion];
     }
 }
