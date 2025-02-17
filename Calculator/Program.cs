@@ -50,7 +50,7 @@
         string operation = parts[1];
         double operand2 = double.Parse(parts[2]);
 
-        double result = 0;
+        double result;
 
         // Perform the calculation based on the operator
         switch (operation)
@@ -100,6 +100,8 @@
         
         // Split the input string into parts
         string[] parts = ConvertStringToArray(input.Trim());
+
+        
     }
 
     static string[] ConvertStringToArray(string str)
