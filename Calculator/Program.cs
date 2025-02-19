@@ -2,7 +2,7 @@
 {
     static void Main()
     {
-        Console.WriteLine("Enter which question to test? (1-3):");
+        Console.WriteLine("Enter which question to test? (1-2):");
         string? input = Console.ReadLine();
 
         try
@@ -28,6 +28,10 @@
         {
             Console.WriteLine(ex.ToString());
         }
+
+        Console.Write("Type q followed by the enter key to quit.");
+
+        while (Console.ReadLine() != "q") {}
     }
 
     static void QuestionOne()
